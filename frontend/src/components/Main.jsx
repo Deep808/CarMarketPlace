@@ -28,7 +28,7 @@ const Main = () => {
       {/* MAP/LOCATION  */}
       <Map />
 
-      {/* FOOTER     */}
+      {/* FOOTER */}
       <Footer />
     </div>
   );
