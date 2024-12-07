@@ -1,0 +1,49 @@
+/* Ensure the app container takes up the full height of the viewport */
+#app {
+  height: 100%;
+}
+
+/* Set html and body to take up the full height of the page */
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+/* General body styles: reset margin and padding, set font properties */
+body {
+  background: none;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+/* Swiper container takes up the full width and height of its parent */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Each swiper slide takes up full space, centers content, and has padding */
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+/* Style for images inside swiper slides */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  background: #000;
+  height: 100%;
+  object-fit: cover;
+}
