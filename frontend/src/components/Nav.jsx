@@ -22,7 +22,7 @@ const Nav = () => {
         </div>
 
         {/* Desktop Links */}
-        <div className="hidden lg:w-[25%] lg:justify-between md:flex text-sm space-x-4">
+        <div className="hidden lg:w-[35%] lg:justify-between md:flex text-sm space-x-4">
           <Link to="/" className="hover:text-[#A64D79]">
             Home
           </Link>
@@ -40,7 +40,7 @@ const Nav = () => {
         {/* Icons and Mobile Menu Toggle */}
         <div className="flex space-x-4 items-center">
           <Link to="/add">
-            <IoAddCircleOutline className="w-5 h-5 cursor-pointer hover:text-[#A64D79]" />
+            <IoAddCircleOutline className="w-6 h-6 cursor-pointer hover:text-[#A64D79]" />
           </Link>
 
           {/* Mobile Menu Button */}
