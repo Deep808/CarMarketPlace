@@ -44,59 +44,9 @@ const CarDetails = () => {
           </h1>
         </div>
 
-        <div className="lg:flex lg:items-center lg:max-w-[90%] mx-auto">
+        <div className="lg:flex lg:items-center lg:max-w-[93%] mx-auto">
           {/* CAR CAROUSAL  */}
-          {/* <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
-            // pagination={{
-            //   clickable: true,
-            // }}
-            // navigation={true}
-            modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper lg:flex-[0.7] cursor-pointer"
-          >
-            <SwiperSlide>
-              <div className="rounded-lg p-6 mx-auto">
-                <img
-                  className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
-                  src="https://images.unsplash.com/photo-1636060889550-20762f149c5b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="image-1"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="rounded-lg p-6 mx-auto">
-                <img
-                  className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
-                  src="https://images.unsplash.com/photo-1636060889550-20762f149c5b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="image-1"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="rounded-lg p-6 mx-auto">
-                <img
-                  className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
-                  src="https://images.unsplash.com/photo-1636060889550-20762f149c5b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="image-1"
-                />
-              </div>
-            </SwiperSlide>
-            <SwiperSlide>
-              <div className="rounded-lg p-6 mx-auto">
-                <img
-                  className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
-                  src="https://images.unsplash.com/photo-1636060889550-20762f149c5b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="image-1"
-                />
-              </div>
-            </SwiperSlide>
-          </Swiper> */}
+
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -109,7 +59,7 @@ const CarDetails = () => {
             // }}
             // navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper lg:flex-[0.7] cursor-pointer"
+            className="mySwiper lg:flex-[0.80] cursor-pointer"
           >
             {carDetails.images?.map((image, index) => (
               <SwiperSlide key={index}>
@@ -117,7 +67,7 @@ const CarDetails = () => {
                   <img
                     className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
                     src={image}
-                    alt={`image-${index + 1}`} // Dynamic alt text
+                    alt={`image-${index + 1}`}
                   />
                 </div>
               </SwiperSlide>
@@ -142,45 +92,7 @@ const CarDetails = () => {
         </div>
 
         {/* CAR INFO  */}
-        {/* <div className="max-w-[80%] mx-auto lg:max-w-[50%]">
-          <h1 className="text-[2em] lg:text-[3em] font-bold mt-12 mb-6 text-left">
-            Vehicle Info
-          </h1>
 
-          <div className="space-y-6">
-            <div className="relative flex justify-between">
-              <p>Make</p>
-              <p>Canada</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-
-            <div className="relative flex justify-between">
-              <p>Model</p>
-              <p>3</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-            <div className="relative flex justify-between">
-              <p>Year</p>
-              <p>2024</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-            <div className="relative flex justify-between">
-              <p>Color</p>
-              <p>White</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-            <div className="relative flex justify-between">
-              <p>VIN</p>
-              <p>WBAKS4C55CD123456</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-            <div className="relative flex justify-between">
-              <p>Price</p>
-              <p className="font-bold text-[1.5em]">$60,000</p>
-              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
-            </div>
-          </div>
-        </div> */}
         <div className="max-w-[80%] mx-auto lg:max-w-[50%]">
           <h1 className="text-[3em] font-bold mt-12 mb-6 text-left">
             Vehicle Info
