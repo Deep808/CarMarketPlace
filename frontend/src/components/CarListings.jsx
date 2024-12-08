@@ -42,7 +42,7 @@ const CarListings = () => {
     const fetchData = async() => {
       try{
         const response = await axios.get('http://localhost:5000/api/cars/');
-        console.log(response);
+        // console.log(response);
         setVehiclesData(response.data);
       } 
       catch(error){
@@ -95,9 +95,9 @@ const CarListings = () => {
       <div className="flex flex-col items-center justify-center">
         {filteredVehicles.length > 0 ? (
           <div className="md:grid md:grid-cols-2 md:gap-x-6 lg:grid-cols-4 lg:max-w-[80%] mx-auto">
-            {filteredVehicles.slice(0, 16).map((vehicle) => (
+            {filteredVehicles.slice(0, 16).map((vehicle,index) => (
               <div
-                key={vehicle.id}
+                key={index}
                 className="border rounded-lg overflow-hidden shadow-md border-black mb-8"
               >
                 {/* Vehicle Image */}
