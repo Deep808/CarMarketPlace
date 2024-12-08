@@ -51,7 +51,26 @@ const CarListings = () => {
     }
     fetchData();
     
-  },[])
+  },[]);
+
+  const handleDelete = (id) => async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this car?");
+    if (!confirmDelete) return;
+  
+    try {
+      const response = await axios.delete(`http://localhost:5000/api/cars/${id}`);
+      if (response.status === 200) {
+        alert("Car deleted successfully!");
+        // Remove the deleted car from the vehiclesData state
+        setVehiclesData((prevData) => prevData.filter((vehicle) => vehicle.id !== id));
+      } else {
+        alert("Failed to delete the car. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error deleting car:", error);
+      alert("An error occurred while deleting the car. Please try again.");
+    }
+  };
 
   return (
     <div className="font max-w-[80%] lg:max-w-full mx-auto my-10">
@@ -126,7 +145,7 @@ const CarListings = () => {
                   >
                     <MdEdit />
                   </div>
-                  <div className="bg-[#6A1E55] hover:bg-[#3B1C32] cursor-pointer text-white w-fit p-3 mx-4 mb-4 rounded-xl">
+                  <div onClick={handleDelete(vehicle.id)} className="bg-[#6A1E55] hover:bg-[#3B1C32] cursor-pointer text-white w-fit p-3 mx-4 mb-4 rounded-xl">
                     <MdDelete />
                   </div>
                 </div>
