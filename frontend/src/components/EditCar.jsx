@@ -2,31 +2,58 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { vehiclesData } from "../utils/vehiclesData";
 import Footer from "./Footer";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const EditCar = () => {
   // Extract the car ID from the URL parameters
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  // Find the specific car using the ID
-  const car = vehiclesData.find((vehicle) => vehicle.id === parseInt(id));
 
   // Set up state for form data, initializing it with the car's current details
   const [formData, setFormData] = useState({
-    make: car?.make || "",
-    model: car?.model || "",
-    year: car?.year || "",
-    color: car?.color || "",
-    kms: car?.kms || "",
-    vin: car?.vin || "",
-    price: car?.price || "",
+    make: "",
+    model: "",
+    year: "",
+    color: "",
+    kms: "",
+    vin: "",
+    price: "",
     images: [],
-    imageLinks: car?.imageLinks || ["", "", "", ""],
+    imageLinks: ["", "", "", ""],
   });
+
+  // Find the specific car using the ID
+  // const car = formData.find((vehicle) => vehicle.id === parseInt(id));
 
   // Scroll to the top of the page on mount
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+
+    const fetchCarDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/cars/${id}`);
+        const car = response.data;
+        // console.log(car);
+        setFormData({
+          make: car.make || "",
+          model: car.model || "",
+          year: car.year || "",
+          color: car.color || "",
+          kms: car.kilometers || "",
+          vin: car.vin || "",
+          price: car.price || "",
+          images: car.images || [],
+          imageLinks: car.images || ["", "", "", ""],
+        });
+      } catch (error) {
+        console.error("Error fetching car details:", error);
+      }
+    };
+
+    fetchCarDetails();
+  }, [id]);
 
   // Handle changes in text inputs
   const handleInputChange = (e) => {
@@ -41,14 +68,28 @@ const EditCar = () => {
   };
 
   // Handle form submission (to update car details)
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Updated Car Details:", formData);
-    // Add logic to update the car details in the database or state
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+  
+    try {
+      // Make an API call to update the car details
+      const response = await axios.put(`http://localhost:5000/api/cars/${id}`, formData);
+  
+      if (response.status === 200) {
+        alert('Car details updated successfully!');
+        navigate('/cars');
+
+      } else {
+        alert('Failed to update car details. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error updating car details:', error);
+      alert('An error occurred while updating the car. Please try again.');
+    }
   };
 
   // If the car is not found, display an error message
-  if (!car) {
+  if (formData.make === '') {
     return <div className="text-center mt-20">Car not found.</div>;
   }
 
