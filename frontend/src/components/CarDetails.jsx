@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 // Import Swiper styles
 import "swiper/css";
@@ -23,10 +23,12 @@ const CarDetails = () => {
     window.scrollTo(0, 0);
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/cars/${id}`);
-        setCarDetails(response.data); 
+        const response = await axios.get(
+          `http://localhost:5000/api/cars/${id}`
+        );
+        setCarDetails(response.data);
       } catch (error) {
-        console.log('Error from single details car page: ' + error);
+        console.log("Error from single details car page: " + error);
       }
     };
 
@@ -109,20 +111,18 @@ const CarDetails = () => {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper lg:flex-[0.7] cursor-pointer"
           >
-
             {carDetails.images?.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <div className="rounded-lg p-6 mx-auto">
-                    <img
-                      className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
-                      src={image}
-                      alt={`image-${index + 1}`} // Dynamic alt text
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
+              <SwiperSlide key={index}>
+                <div className="rounded-lg p-6 mx-auto">
+                  <img
+                    className="w-full md:max-w-[90%] mx-auto object-cover rounded-lg"
+                    src={image}
+                    alt={`image-${index + 1}`} // Dynamic alt text
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
           </Swiper>
-
 
           {/* CAR FINANCING OPTIONS  */}
           <div className="max-w-[80%] mx-auto space-y-4 lg:flex-[0.3]">
@@ -226,9 +226,7 @@ const CarDetails = () => {
           <h1 className="text-[2em] lg:text-[3em] font-bold mt-12 mb-6">
             Description
           </h1>
-          <p>
-            {carDetails.description}
-          </p>
+          <p>{carDetails.description}</p>
         </div>
 
         {/* TERMS  */}
@@ -237,10 +235,10 @@ const CarDetails = () => {
             *Terms & Conditions
           </h1>
           <p className="opacity-50">
-            The Tesla Model 3 is sold "as-is" with no warranties beyond the
-            manufacturer’s. Payment must be made in full, and ownership is
-            transferred upon receipt. The buyer assumes responsibility for
-            inspection and any future issues.
+            The {carDetails.make} {carDetails.model} is sold "as-is" with no
+            warranties beyond the manufacturer’s. Payment must be made in full,
+            and ownership is transferred upon receipt. The buyer assumes
+            responsibility for inspection and any future issues.
           </p>
         </div>
 
