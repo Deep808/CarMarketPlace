@@ -90,7 +90,7 @@ const CarListings = () => {
               className="border outline-none text-white hover:bg-[#6A1E55] bg-[#3B1C32] rounded px-2 py-1"
             >
               <option value="price">Price</option>
-              <option value="kms">Kilometers</option>
+              <option value="kilometers">Kilometers</option>
             </select>
           </div>
           <div className="w-fit mx-auto my-6 border border-black">
