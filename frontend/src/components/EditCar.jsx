@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { vehiclesData } from "../utils/vehiclesData";
+// import { vehiclesData } from "../utils/vehiclesData";
 import Footer from "./Footer";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Update from "./Update";
 
 const EditCar = () => {
   // Extract the car ID from the URL parameters
   const { id } = useParams();
   const navigate = useNavigate();
-
 
   // Set up state for form data, initializing it with the car's current details
   const [formData, setFormData] = useState({
@@ -24,6 +24,8 @@ const EditCar = () => {
     imageLinks: ["", "", "", ""],
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   // Find the specific car using the ID
   // const car = formData.find((vehicle) => vehicle.id === parseInt(id));
 
@@ -33,7 +35,9 @@ const EditCar = () => {
 
     const fetchCarDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/cars/${id}`);
+        const response = await axios.get(
+          `http://localhost:5000/api/cars/${id}`
+        );
         const car = response.data;
         // console.log(car);
         setFormData({
@@ -69,27 +73,30 @@ const EditCar = () => {
 
   // Handle form submission (to update car details)
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-  
-    try {
-      // Make an API call to update the car details
-      const response = await axios.put(`http://localhost:5000/api/cars/${id}`, formData);
-  
-      if (response.status === 200) {
-        alert('Car details updated successfully!');
-        navigate('/cars');
+    e.preventDefault(); // Prevent the form from refreshing the page
+    setIsModalOpen(true); // Open the modal immediately
 
-      } else {
-        alert('Failed to update car details. Please try again.');
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/api/cars/${id}`,
+        formData
+      );
+
+      if (response.status === 200) {
+        // Ensure modal remains open
+        console.log("Car details updated successfully.");
+        setTimeout(() => {
+          navigate("/cars"); // Navigate after a delay to keep the modal visible for a short time
+        }, 2000); // Adjust this delay as necessary
       }
     } catch (error) {
-      console.error('Error updating car details:', error);
-      alert('An error occurred while updating the car. Please try again.');
+      console.error("Error updating car details:", error);
+      alert("An error occurred.");
     }
   };
 
   // If the car is not found, display an error message
-  if (formData.make === '') {
+  if (formData.make === "") {
     return <div className="text-center mt-20">Car not found.</div>;
   }
 
@@ -99,7 +106,7 @@ const EditCar = () => {
         <h1 className="font text-[2em] lg:text-[3em] font-bold text-start">
           Edit Car Details
         </h1>
-        <form onSubmit={handleSubmit} className="font mx-auto my-6">
+        <form className="font mx-auto my-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Inputs for Car Attributes */}
             <div>
@@ -194,13 +201,18 @@ const EditCar = () => {
             </div>
           </div>
           <button
-            type="submit"
+            onClick={handleSubmit}
             className="w-full lg:w-1/4 lg:flex lg:justify-center mt-8 mx-auto p-4 bg-[#3B1C32] text-white font-medium shadow-sm cursor-pointer"
           >
             Save Changes
           </button>
         </form>
       </div>
+      <Update
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        message="Car details have been updated successfully!"
+      />
       <Footer />
     </>
   );
