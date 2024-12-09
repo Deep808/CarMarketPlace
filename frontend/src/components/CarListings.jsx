@@ -61,6 +61,7 @@ const CarListings = () => {
       try {
         const response = await axios.get("http://localhost:5000/api/cars/");
         setVehiclesData(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching vehicles:", error);
       }
@@ -128,7 +129,7 @@ const CarListings = () => {
                   />
                   <div className="p-4">
                     <h2 className="text-xl font-semibold">{vehicle.name}</h2>
-                    <p>{vehicle.kms} KM</p>
+                    <p>{vehicle.kilometers} KM</p>
                     <p className="font-semibold text-lg">${vehicle.price}</p>
                   </div>
                   <div className="flex items-center md:justify-center justify-end">
