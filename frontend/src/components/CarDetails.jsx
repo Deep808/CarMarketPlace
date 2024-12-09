@@ -15,10 +15,13 @@ import "../styles/Ratings.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 import Footer from "./Footer";
+import Buy from "./Buy";
 
 const CarDetails = () => {
   const { id } = useParams();
   const [carDetails, setCarDetails] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     const fetchData = async () => {
@@ -27,6 +30,7 @@ const CarDetails = () => {
           `http://localhost:5000/api/cars/${id}`
         );
         setCarDetails(response.data);
+        console.log(response.data);
       } catch (error) {
         console.log("Error from single details car page: " + error);
       }
@@ -34,6 +38,10 @@ const CarDetails = () => {
 
     fetchData();
   }, [id]);
+
+  const handlePurchase = () => {
+    setModalOpen(true); // Open the modal
+  };
 
   return (
     <>
@@ -116,6 +124,11 @@ const CarDetails = () => {
               <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
             </div>
             <div className="relative flex justify-between">
+              <p>Kilometers</p>
+              <p>{carDetails.kilometers}</p>
+              <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
+            </div>
+            <div className="relative flex justify-between">
               <p>Color</p>
               <p>{carDetails.color}</p>
               <span className="absolute w-full -bottom-2 bg-black/20 h-[1px]"></span>
@@ -154,13 +167,16 @@ const CarDetails = () => {
           </p>
         </div>
 
-        <div className="max-w-[80%] mx-auto mt-[3em] lg:w-1/4 hover:cursor-pointer">
+        <div
+          onClick={handlePurchase}
+          className="max-w-[80%] mx-auto mt-[3em] lg:w-1/4 hover:cursor-pointer"
+        >
           <p className="border font-medium border-[#3B1C32] p-4 text-[1.2em] text-center bg-[#3B1C32] text-white">
             Buy Now!
           </p>
         </div>
       </div>
-
+      <Buy open={modalOpen} onClose={() => setModalOpen(false)} />
       <Footer />
     </>
   );
