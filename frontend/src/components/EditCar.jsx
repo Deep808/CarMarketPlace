@@ -17,11 +17,11 @@ const EditCar = () => {
     model: "",
     year: "",
     color: "",
-    kms: "",
+    kilometers: 0,
     vin: "",
     price: "",
     images: [],
-    imageLinks: ["", "", "", ""],
+    description: ""
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,17 +39,16 @@ const EditCar = () => {
           `http://localhost:5000/api/cars/${id}`
         );
         const car = response.data;
-        // console.log(car);
         setFormData({
           make: car.make || "",
           model: car.model || "",
           year: car.year || "",
           color: car.color || "",
-          kms: car.kilometers || "",
+          kilometers: car.kilometers || "",
           vin: car.vin || "",
           price: car.price || "",
           images: car.images || [],
-          imageLinks: car.images || ["", "", "", ""],
+          description: car.description || ""
         });
       } catch (error) {
         console.error("Error fetching car details:", error);
@@ -66,9 +65,9 @@ const EditCar = () => {
   };
   // Update image link inputs dynamically
   const handleImageLinkChange = (index, value) => {
-    const updatedLinks = [...formData.imageLinks];
+    const updatedLinks = [...formData.images];
     updatedLinks[index] = value;
-    setFormData({ ...formData, imageLinks: updatedLinks });
+    setFormData({ ...formData, images: updatedLinks });
   };
 
   // Handle form submission (to update car details)
@@ -155,8 +154,8 @@ const EditCar = () => {
               <label className="block font-medium mb-1">KMs</label>
               <input
                 type="number"
-                name="kms"
-                value={formData.kms}
+                name="kilometers"
+                value={formData.kilometers}
                 onChange={handleInputChange}
                 className="border border-[#6A1E55]/20 outline-none p-4 mt-1 block w-full rounded shadow-sm focus:border-[#6A1E55] focus:ring-[#6A1E55]"
               />
@@ -181,6 +180,18 @@ const EditCar = () => {
                 className="border border-[#6A1E55]/20 outline-none p-4 mt-1 block w-full rounded shadow-sm focus:border-[#6A1E55] focus:ring-[#6A1E55]"
               />
             </div>
+
+            <div>
+              <label className="block font-medium mb-1">Description</label>
+              <input
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Enter Description"
+                className="border border-[#6A1E55]/20 outline-none p-4 mt-1 block w-full rounded shadow-sm focus:border-[#6A1E55] focus:ring-[#6A1E55]"
+              />
+            </div>
             {/* Section for Image Links */}
             <div>
               {[...Array(4)].map((_, index) => (
@@ -190,7 +201,7 @@ const EditCar = () => {
                   </label>
                   <input
                     type="text"
-                    value={formData.imageLinks[index]}
+                    value={formData.images[index]}
                     onChange={(e) =>
                       handleImageLinkChange(index, e.target.value)
                     }

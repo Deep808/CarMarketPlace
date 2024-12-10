@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "./Footer";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
   const [formData, setFormData] = useState({
@@ -7,12 +9,15 @@ const AddCar = () => {
     model: "",
     year: "",
     color: "",
-    kms: "",
+    kilometers: 0,
     vin: "",
     price: "",
     images: [],
-    imageLinks: ["", "", "", ""], // Predefined array for image links
+    description: ""
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
 
   // Scroll to the top of the page when the component is mounted
   useEffect(() => {
@@ -27,16 +32,29 @@ const AddCar = () => {
 
   // Handle changes in image link fields
   const handleImageLinkChange = (index, value) => {
-    const updatedLinks = [...formData.imageLinks];
+    const updatedLinks = [...formData.images];
     updatedLinks[index] = value; // Update the specific image link at the given index
-    setFormData({ ...formData, imageLinks: updatedLinks });
+    setFormData({ ...formData, images: updatedLinks });
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Add logic to handle form submission (e.g., API call)
+    setIsModalOpen(true); // Open the modal immediately
+    
+    try{
+      const response = await axios.post('http://localhost:5000/api/cars/', formData);
+      if(response.status === 201){
+        console.log("Car Added successfully.");
+        setTimeout(() => {
+          navigate("/cars"); // Navigate after a delay to keep the modal visible for a short time
+        }, 2000); // Adjust this delay as necessary
+      }
+    }
+    catch(error){
+      console.log('error in adding car: ' + error);
+    }
+    
   };
 
   return (
@@ -99,8 +117,8 @@ const AddCar = () => {
               <label className="block font-medium mb-1">KMs</label>
               <input
                 type="number"
-                name="kms"
-                value={formData.kms}
+                name="kilometers"
+                value={formData.kilometers}
                 onChange={handleInputChange}
                 placeholder="Enter Kilometers"
                 className="border border-[#6A1E55]/20 outline-none p-4 mt-1 block w-full rounded shadow-sm focus:border-[#6A1E55] focus:ring-[#6A1E55]"
@@ -130,6 +148,18 @@ const AddCar = () => {
             </div>
 
             <div>
+              <label className="block font-medium mb-1">Description</label>
+              <input
+                type="text"
+                name="description"
+                value={formData.description}
+                onChange={handleInputChange}
+                placeholder="Enter Description"
+                className="border border-[#6A1E55]/20 outline-none p-4 mt-1 block w-full rounded shadow-sm focus:border-[#6A1E55] focus:ring-[#6A1E55]"
+              />
+            </div>
+
+            <div>
               {/* Dynamic fields for entering image links */}
               {[...Array(4)].map((_, index) => (
                 <div key={index}>
@@ -138,7 +168,7 @@ const AddCar = () => {
                   </label>
                   <input
                     type="text"
-                    value={formData.imageLinks[index]}
+                    value={formData.images[index]}
                     onChange={(e) =>
                       handleImageLinkChange(index, e.target.value)
                     }

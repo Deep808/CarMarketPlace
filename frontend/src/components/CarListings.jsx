@@ -61,7 +61,6 @@ const CarListings = () => {
       try {
         const response = await axios.get("http://localhost:5000/api/cars/");
         setVehiclesData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching vehicles:", error);
       }
