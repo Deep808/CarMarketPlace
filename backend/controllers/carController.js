@@ -21,15 +21,6 @@ const getCars = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-// Fetch all cars
-/*const getCars = async (req, res) => {
-    try {
-        const cars = await Car.find();
-        res.status(200).json(cars);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};*/
 
 // Get a single car by ID
 const getCarById = async (req, res) => {
